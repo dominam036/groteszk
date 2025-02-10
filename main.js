@@ -71,6 +71,10 @@ const formtomb = [ // Létrehozzuk a formtomb tömböt, amely a form mezőit tar
     }
 ]
 
+/**
+ * a table legenerálása
+ * @param {Array} tomb 
+ */
 function RenderTable(tomb){ // Függvény a táblázat megjelenítésére
     fejlecGeneralas(fejlec) // A fejlecGeneralas függvény meghívása
 
@@ -111,6 +115,13 @@ function RenderTable(tomb){ // Függvény a táblázat megjelenítésére
 
 RenderTable(tomb) // Meghívjuk a táblázat megjelenítésére szolgáló függvényt
 
+
+/**
+ * egy elem validálása
+ * @param {HTMLElement} elem 
+ * @param {string} errorsz 
+ * @returns 
+ */
 function validacio(elem, errorsz){ // Létrehozzuk a validációs függvényt
     let valid = true // A valid változó alapértelmezett értéke igaz (true)
     if(elem.value === ""){ // Ha az elem értéke üres, akkor belépünk
@@ -124,6 +135,13 @@ function validacio(elem, errorsz){ // Létrehozzuk a validációs függvényt
     return valid // Visszatérünk a valid változó értékével
 }
 
+/**
+ * két elem kereszt validálása
+ * @param {HTMLElement} elsoelem 
+ * @param {HTMLElement} masodikelem 
+ * @param {string} errorsz 
+ * @returns 
+ */
 function kettovalidacio(elsoelem, masodikelem, errorsz){  // Létrehozzuk a kettovalidacio nevű függvényt, amely két elem validálására szolgál
     let valid = true; // A valid változó alapértelmezett értéke true, azaz először érvényesnek tekintjük az adatokat
     if(elsoelem.value != "" && !validacio(masodikelem, errorsz)){ // Ellenőrizzük, hogy az elsoelem nem üres, és ha nem, akkor a masodikelem validációját ellenőrizzük
@@ -135,6 +153,10 @@ function kettovalidacio(elsoelem, masodikelem, errorsz){  // Létrehozzuk a kett
     return valid; // A függvény visszaadja a valid értékét, ami true, ha minden validáció sikeres, és false, ha van hiba
 }
 
+/**
+ * legenerálja a form-ot
+ * @returns visszaadja a form-ot
+ */
 function formGeneralas(){ // Létrehozzuk a formGeneralas függvényt, amely létrehozza és hozzáadja a formot az oldalhoz
     const form = document.createElement('form') // Létrehozunk egy form elemet
     document.body.appendChild(form) // Hozzáadjuk a formot a body-hoz
