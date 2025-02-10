@@ -90,6 +90,19 @@ function RenderTable(){ // Függvény a táblázat megjelenítésére
 
 RenderTable() // Meghívjuk a táblázat megjelenítésére szolgáló függvényt
 
+function validacio(elem, errorsz){ // Létrehozzuk a validációs függvényt
+    let valid = true // A valid változó alapértelmezett értéke igaz (true)
+    if(elem.value === ""){ // Ha az elem értéke üres, akkor belépünk
+        const parent = elem.parentElement // Az elem szülő elemét eltároljuk
+        const error = parent.querySelector(".error") // Az első 'error' osztályú elemet kiválasztjuk a szülőből
+        if(error != ""){ // Ha az error elem létezik
+            error.innerHTML = errorsz // Beállítjuk az error szövegét az errorsz paraméter alapján
+        }
+        valid = false // A validáció sikertelen lesz
+    }
+    return valid // Visszatérünk a valid változó értékével
+}
+
 const form = document.getElementById('form') // Form elem kiválasztása az oldalról
 
 form.addEventListener('submit', function(e){ // Űrlap elküldésére figyelő eseménykezelő
@@ -115,28 +128,13 @@ form.addEventListener('submit', function(e){ // Űrlap elküldésére figyelő e
         i.innerHTML = "" // Az összes hibaüzenet tartalmát töröljük
     }
 
-    if(nemzetV === ""){ // Ha a nemzetiség mező üres
-        const parent = nemzetHTML.parentElement // A mező szülő elemét eltároljuk
-        const error = parent.querySelector('.error') // Az első 'error' osztályú elemet kiválasztjuk a szülőből
-        if(error != ""){ // Ha az error elem létezik
-            error.innerHTML = errorszoveg // Beállítjuk a hibaüzenet szövegét
-        }
+    if(!validacio(nemzetHTML, errorszoveg)){ // Ha a validáció false-sal tér vissza:
         valid = false // A validálás sikertelen lesz
     }
-    if(szerzo1V === ""){ // Ha az első szerző mező üres
-        const parent = szerzo1HTML.parentElement // A mező szülő elemét eltároljuk
-        const error = parent.querySelector('.error') // Az első 'error' osztályú elemet kiválasztjuk a szülőből
-        if(error != ""){ // Ha az error elem létezik
-            error.innerHTML = errorszoveg // Beállítjuk a hibaüzenet szövegét
-        }
+    if(!validacio(szerzo1HTML, errorszoveg)){ // Ha a validáció false-sal tér vissza:
         valid = false // A validálás sikertelen lesz
     }
-    if(mu1V === ""){ // Ha az első mű mező üres
-        const parent = mu1HTML.parentElement // A mező szülő elemét eltároljuk
-        const error = parent.querySelector('.error') // Az első 'error' osztályú elemet kiválasztjuk a szülőből
-        if(error != ""){ // Ha az error elem létezik
-            error.innerHTML = errorszoveg // Beállítjuk a hibaüzenet szövegét
-        }
+    if(!validacio(mu1HTML, errorszoveg)){ // Ha a validáció false-sal tér vissza:
         valid = false // A validálás sikertelen lesz
     }
 
