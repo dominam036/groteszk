@@ -48,6 +48,28 @@ function fejlecGeneralas(fejlec){ // A fejléc generálása
     }
 }
 
+const formtomb = [ // Létrehozzuk a formtomb tömböt, amely a form mezőit tartalmazza
+    {
+        label: "Származás:", // Az első objektumban beállítjuk a "label" tulajdonságot, ami a mező címét adja meg
+        id: "szarmazas", // Az első objektumban beállítjuk a "id" tulajdonságot, ami a mező azonosítója
+    },
+    {
+        label: "1. szerző:", // A második objektumban beállítjuk a "label" tulajdonságot, ami a második mező címét adja meg
+        id: "szerzo1", // A második objektumban beállítjuk a "id" tulajdonságot, ami a második mező azonosítója
+    },
+    {
+        label: "1. szerző műve:", // A harmadik objektumban beállítjuk a "label" tulajdonságot, ami a harmadik mező címét adja meg
+        id: "szerzo1mu", // A harmadik objektumban beállítjuk a "id" tulajdonságot, ami a harmadik mező azonosítója
+    },
+    {
+        label: "2. szerző:", // A negyedik objektumban beállítjuk a "label" tulajdonságot, ami a negyedik mező címét adja meg
+        id: "szerzo2", // A negyedik objektumban beállítjuk a "id" tulajdonságot, ami a negyedik mező azonosítója
+    },
+    {
+        label: "2. szerző műve:", // Az ötödik objektumban beállítjuk a "label" tulajdonságot, ami az ötödik mező címét adja meg
+        id: "szerzo2mu", // Az ötödik objektumban beállítjuk a "id" tulajdonságot, ami az ötödik mező azonosítója
+    }
+]
 
 function RenderTable(tomb){ // Függvény a táblázat megjelenítésére
     fejlecGeneralas(fejlec) // A fejlecGeneralas függvény meghívása
@@ -113,7 +135,47 @@ function kettovalidacio(elsoelem, masodikelem, errorsz){  // Létrehozzuk a kett
     return valid; // A függvény visszaadja a valid értékét, ami true, ha minden validáció sikeres, és false, ha van hiba
 }
 
-const form = document.getElementById('form') // Form elem kiválasztása az oldalról
+function formGeneralas(){ // Létrehozzuk a formGeneralas függvényt, amely létrehozza és hozzáadja a formot az oldalhoz
+    const form = document.createElement('form') // Létrehozunk egy form elemet
+    document.body.appendChild(form) // Hozzáadjuk a formot a body-hoz
+    form.id = "form" // A form elem id-ját beállítjuk "form"-ra
+    form.action = "#" // A form action-jét "#" értékre állítjuk (nem történik semmi, ha elküldjük)
+    
+    for(let i = 0; i < formtomb.length; i++ ){ // Végigiterálunk a formtomb tömbön, amely a mezők adatokat tartalmazza
+        const div = document.createElement('div') // Létrehozunk egy div elemet
+        form.appendChild(div) // A div elemet hozzáadjuk a formhoz
+        
+        const label = document.createElement('label') // Létrehozunk egy label elemet
+        div.appendChild(label) // A label-t hozzáadjuk a divhez
+        label.innerHTML = formtomb[i].label // A label szövege a formtomb tömb aktuális objektumának "label" tulajdonsága
+        
+        const br = document.createElement('br') // Létrehozunk egy sortörést (br) a label és az input között
+        div.appendChild(br) // A sortörést hozzáadjuk a divhez
+        
+        const input = document.createElement('input') // Létrehozunk egy input mezőt
+        div.appendChild(input) // Az inputot hozzáadjuk a divhez
+        input.type = "text" // Az input típusa "text" (szöveges mező)
+        input.id = formtomb[i].id // Az input id-ja a formtomb aktuális objektumának "id" tulajdonsága
+        input.name = formtomb[i].id // Az input name-je a formtomb aktuális objektumának "id" tulajdonsága
+        
+        const br2 = document.createElement('br') // Létrehozunk egy másik sortörést (br)
+        div.appendChild(br2) // A második sortörést hozzáadjuk a divhez
+        
+        const span = document.createElement('span') // Létrehozunk egy span elemet az esetleges hibaüzenetek számára
+        div.appendChild(span) // A span-t hozzáadjuk a divhez
+        span.className = "error" // A span osztályát "error"-ra állítjuk (ez az osztály fogja tartalmazni a hibát)
+        
+        const br3 = document.createElement('br') // Létrehozunk egy újabb sortörést (br)
+        div.appendChild(br3) // Az újabb sortörést hozzáadjuk a divhez
+    }
+    
+    const button = document.createElement('button') // Létrehozunk egy gombot
+    button.innerHTML = "Hozzáadás" // A gomb szövege "Hozzáadás"
+    form.appendChild(button) // A gombot hozzáadjuk a formhoz
+    return form // A form visszaadása
+}
+
+const form = formGeneralas() // A form elem lekérése
 
 form.addEventListener('submit', function(e){ // Űrlap elküldésére figyelő eseménykezelő
     e.preventDefault() // Megakadályozzuk az alapértelmezett űrlapküldést
