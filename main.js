@@ -34,6 +34,10 @@ const tomb = [ // Az adatok tárolására szolgáló tömb
 const table = document.createElement('table') // Létrehozunk egy táblázat elemet
 document.body.appendChild(table) // Hozzáadjuk a táblázatot a dokumentum törzséhez
 
+/**
+ * a fejléc legenerálása
+ * @param {object} fejlec 
+ */
 function fejlecGeneralas(fejlec){ // A fejléc generálása
     const thead = document.createElement('thead'); // Thead elem létrehozása
     table.appendChild(thead); // Thead hozzáadása a táblázathoz
