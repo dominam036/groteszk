@@ -103,6 +103,17 @@ function validacio(elem, errorsz){ // Létrehozzuk a validációs függvényt
     return valid // Visszatérünk a valid változó értékével
 }
 
+function kettovalidacio(elsoelem, masodikelem, errorsz){  // Létrehozzuk a kettovalidacio nevű függvényt, amely két elem validálására szolgál
+    let valid = true; // A valid változó alapértelmezett értéke true, azaz először érvényesnek tekintjük az adatokat
+    if(elsoelem.value != "" && !validacio(masodikelem, errorsz)){ // Ellenőrizzük, hogy az elsoelem nem üres, és ha nem, akkor a masodikelem validációját ellenőrizzük
+        valid = false; // Ha a masodikelem validációja hibás, akkor a valid változót false-ra állítjuk
+    }
+    if(masodikelem.value != "" && !validacio(elsoelem, errorsz)){ // Ellenőrizzük, hogy a masodikelem nem üres, és ha nem, akkor az elsoelem validációját ellenőrizzük
+        valid = false; // Ha az elsoelem validációja hibás, akkor a valid változót false-ra állítjuk
+    }
+    return valid; // A függvény visszaadja a valid értékét, ami true, ha minden validáció sikeres, és false, ha van hiba
+}
+
 const form = document.getElementById('form') // Form elem kiválasztása az oldalról
 
 form.addEventListener('submit', function(e){ // Űrlap elküldésére figyelő eseménykezelő
@@ -137,12 +148,8 @@ form.addEventListener('submit', function(e){ // Űrlap elküldésére figyelő e
     if(!validacio(mu1HTML, errorszoveg)){ // Ha a validáció false-sal tér vissza:
         valid = false // A validálás sikertelen lesz
     }
-    if(szerzo2V != "" && !validacio(mu2HTML, errorszoveg)){ // Ha a második szerző mező nincs üresen, de a hozzá tartozó mű nincs megfelelően kitöltve
-        valid = false; // A validáció sikertelen
-    }
-    
-    if(mu2V != "" && !validacio(szerzo2HTML, errorszoveg)){ // Ha a második mű mező nincs üresen, de a szerző nincs megfelelően kitöltve
-        valid = false; // A validáció sikertelen
+    if(!kettovalidacio(szerzo2HTML, mu2HTML, errorszoveg)){ // Meghívjuk a kettovalidacio függvényt a szerzo2HTML és mu2HTML elemekre. Ha a visszatérési érték false, akkor belépünk a feltételbe
+        valid = false; // A valid változót false-ra állítjuk, jelezve, hogy a validáció nem sikerült
     }
     
     if(valid){ // Ha az összes kötelező mező megfelelően ki van töltve
