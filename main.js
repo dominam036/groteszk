@@ -34,24 +34,23 @@ const tomb = [ // Az adatok tárolására szolgáló tömb
 const table = document.createElement('table') // Létrehozunk egy táblázat elemet
 document.body.appendChild(table) // Hozzáadjuk a táblázatot a dokumentum törzséhez
 
+function fejlecGeneralas(){ // A fejléc generálása
+    const thead = document.createElement('thead'); // Thead elem létrehozása
+    table.appendChild(thead); // Thead hozzáadása a táblázathoz
+    
+    const theadr = document.createElement('tr'); // Tr elem létrehozása
+    thead.appendChild(theadr); // Tr hozzáadása a thead-hez
+    
+    for(const i in fejlec){ // Iterálás a fejlec objektumon
+        const theadc = document.createElement('th'); // Th elem létrehozása
+        theadc.innerHTML = fejlec[i]; // A th elem szövegének beállítása
+        theadr.appendChild(theadc); // Th hozzáadása a tr-hez
+    }
+}
+
+
 function RenderTable(){ // Függvény a táblázat megjelenítésére
-    const thead = document.createElement('thead') // Létrehozzuk a táblázat fejlécelemét
-    table.appendChild(thead) // A fejlécet hozzáadjuk a táblázathoz
-
-    const tr_h = document.createElement('tr') // Létrehozunk egy sort a fejlécben
-    thead.appendChild(tr_h) // A sort hozzáadjuk a fejléchez
-
-    const th1 = document.createElement('th') // Létrehozzuk az első oszlop fejlécét
-    th1.innerHTML = fejlec.nemzet // Beállítjuk a fejléc szövegét
-    tr_h.appendChild(th1) // Hozzáadjuk a fejléc sort az oszlophoz
- 
-    const th2 = document.createElement('th') // Létrehozzuk a második oszlop fejlécét
-    th2.innerHTML = fejlec.szerzo // Beállítjuk a fejléc szövegét
-    tr_h.appendChild(th2) // Hozzáadjuk a fejléc sort az oszlophoz
-
-    const th3 = document.createElement('th') // Létrehozzuk a harmadik oszlop fejlécét
-    th3.innerHTML = fejlec.mu // Beállítjuk a fejléc szövegét
-    tr_h.appendChild(th3) // Hozzáadjuk a fejléc sort az oszlophoz
+    fejlecGeneralas() // A fejlecGeneralas függvény meghívása
 
     const tbody = document.createElement('tbody') // Létrehozzuk a táblázat törzsét
     table.appendChild(tbody) // A táblázat törzsét hozzáadjuk a táblázathoz
