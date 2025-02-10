@@ -137,17 +137,35 @@ form.addEventListener('submit', function(e){ // Űrlap elküldésére figyelő e
     if(!validacio(mu1HTML, errorszoveg)){ // Ha a validáció false-sal tér vissza:
         valid = false // A validálás sikertelen lesz
     }
-
-    if(valid){ // Ha az összes mező megfelelően ki van töltve
-        const ujObj =  { // Létrehozunk egy új objektumot az adatokkal
-            nemzet: nemzetV, // A nemzetiség értékét beállítjuk
-            szerzo: szerzo1V, // Az első szerző értékét beállítjuk
-            mu: mu1V, // Az első mű értékét beállítjuk
-            szerzo2: szerzo2V, // A második szerző értékét beállítjuk
-            mu2: mu2V // A második mű értékét beállítjuk
-        }
-        tomb.push(ujObj) // Az új objektumot hozzáadjuk a tömbhöz
+    if(szerzo2V != "" && !validacio(mu2HTML, errorszoveg)){ // Ha a második szerző mező nincs üresen, de a hozzá tartozó mű nincs megfelelően kitöltve
+        valid = false; // A validáció sikertelen
     }
+    
+    if(mu2V != "" && !validacio(szerzo2HTML, errorszoveg)){ // Ha a második mű mező nincs üresen, de a szerző nincs megfelelően kitöltve
+        valid = false; // A validáció sikertelen
+    }
+    
+    if(valid){ // Ha az összes kötelező mező megfelelően ki van töltve
+        if(szerzo2V == "" && mu2V == ""){ // Ha a második szerző és mű mezők üresek, akkor az objektumot csak az első szerző és mű adataival hozzuk létre
+            const ujObj = { 
+                nemzet: nemzetV, // A nemzetiség tulajdonság értéke
+                szerzo: szerzo1V, // Az első szerző neve
+                mu: mu1V // Az első mű címe
+            };
+            tomb.push(ujObj); // Az objektumot hozzáadjuk a tömbhöz
+        }
+        else { 
+            const ujObj = { // Ha a második szerző és mű is ki van töltve, akkor ezekkel együtt mentjük az adatokat
+                nemzet: nemzetV, // A nemzetiség tulajdonság értéke
+                szerzo: szerzo1V, // Az első szerző neve
+                mu: mu1V, // Az első mű címe
+                szerzo2: szerzo2V, // A második szerző neve
+                mu2: mu2V // A második mű címe
+            };
+            tomb.push(ujObj); // Az objektumot hozzáadjuk a tömbhöz
+        }
+    }
+    
     table.innerHTML = "" // Táblázat törlése
     RenderTable() // Táblázat újragenerálása
 })
