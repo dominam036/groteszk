@@ -34,7 +34,7 @@ const tomb = [ // Az adatok tárolására szolgáló tömb
 const table = document.createElement('table') // Létrehozunk egy táblázat elemet
 document.body.appendChild(table) // Hozzáadjuk a táblázatot a dokumentum törzséhez
 
-function fejlecGeneralas(){ // A fejléc generálása
+function fejlecGeneralas(fejlec){ // A fejléc generálása
     const thead = document.createElement('thead'); // Thead elem létrehozása
     table.appendChild(thead); // Thead hozzáadása a táblázathoz
     
@@ -49,8 +49,8 @@ function fejlecGeneralas(){ // A fejléc generálása
 }
 
 
-function RenderTable(){ // Függvény a táblázat megjelenítésére
-    fejlecGeneralas() // A fejlecGeneralas függvény meghívása
+function RenderTable(tomb){ // Függvény a táblázat megjelenítésére
+    fejlecGeneralas(fejlec) // A fejlecGeneralas függvény meghívása
 
     const tbody = document.createElement('tbody') // Létrehozzuk a táblázat törzsét
     table.appendChild(tbody) // A táblázat törzsét hozzáadjuk a táblázathoz
@@ -87,7 +87,7 @@ function RenderTable(){ // Függvény a táblázat megjelenítésére
     } 
 }
 
-RenderTable() // Meghívjuk a táblázat megjelenítésére szolgáló függvényt
+RenderTable(tomb) // Meghívjuk a táblázat megjelenítésére szolgáló függvényt
 
 function validacio(elem, errorsz){ // Létrehozzuk a validációs függvényt
     let valid = true // A valid változó alapértelmezett értéke igaz (true)
@@ -173,5 +173,5 @@ form.addEventListener('submit', function(e){ // Űrlap elküldésére figyelő e
     }
     
     table.innerHTML = "" // Táblázat törlése
-    RenderTable() // Táblázat újragenerálása
+    RenderTable(tomb) // Táblázat újragenerálása
 })
