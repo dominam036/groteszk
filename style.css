@@ -1,0 +1,15 @@
+table tr td, th {
+    border: 1px solid gray;
+}
+
+th:nth-of-type(even), td:nth-last-of-type(odd) {
+    background-color: green;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+.error{
+    color: red;
+}
